@@ -70,3 +70,25 @@ def player(x, y):
 def enemy(x, y, i):
     screen.blit(enemyImg[i], (x, y))
 
+def fire_bullet(x,y):
+    global bullet_state
+    bullet_state = "fire"
+    screen.blit(bulletImg, (x + 16, y + 10))
+
+def iscollision(enemyX, enemyY, bulletX, bulletY):
+    distance = math.sqrt((enemyX - bulletX) ** 2 + (enemyY - bulletY) ** 2 )
+    return distance < COLLISION_DISTANCE
+
+running = True
+while running:
+    screen.fill((0,0,0))
+    screen.blit (background, (0,0))
+
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_LEFT:
+                playerX_change = -5
+            if event.key == pygame.K_RIGHT:
+                playerX_change = 5
